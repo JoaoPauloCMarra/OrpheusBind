@@ -3,14 +3,15 @@
   "version": "0.0.1",
   "author": "JoaoPauloCMarra <joaopaulocmarra@gmail.com> (http://webnexus.com.br/)",
   "license": "MIT",
-  "main": "./dist/cjs/OrpheusBind.js",
-  "module": "./dist/es/OrpheusBind.js",
+  "main": "./dist/OrpheusBind.js",
+  "module": "./distOrpheusBind.js",
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -cw",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "yarn lint && yarn test && yarn build"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
