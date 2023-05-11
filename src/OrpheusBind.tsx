@@ -1,7 +1,5 @@
-// src/OrpheusBind.ts
-
-import { useState, useEffect } from "react";
-import { BehaviorSubject } from "rxjs";
+import { useState, useEffect } from 'react';
+import { BehaviorSubject } from 'rxjs';
 
 // Factory function to create global state hooks
 export function createGlobalState<T extends GlobalState>(initialState: T) {
@@ -9,17 +7,11 @@ export function createGlobalState<T extends GlobalState>(initialState: T) {
 
   function updateGlobalState(newStateOrUpdater: StateOrUpdater<T>): void {
     const currentState = globalState$.value;
-    const newState =
-      typeof newStateOrUpdater === "function"
-        ? newStateOrUpdater(currentState)
-        : newStateOrUpdater;
+    const newState = typeof newStateOrUpdater === 'function' ? newStateOrUpdater(currentState) : newStateOrUpdater;
     globalState$.next(newState);
   }
 
-  function useCustomGlobalState(): [
-    T,
-    (newStateOrUpdater: StateOrUpdater<T>) => void
-  ] {
+  function useCustomGlobalState(): [T, (newStateOrUpdater: StateOrUpdater<T>) => void] {
     const [state, setState] = useState<T>(globalState$.value);
 
     useEffect(() => {

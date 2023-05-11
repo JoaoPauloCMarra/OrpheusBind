@@ -27,7 +27,7 @@ Create a file to define your custom global state hook, including the state inter
 ```tsx
 // src/userGlobalState.ts
 
-import { createGlobalState } from "orpheus-bind";
+import { createGlobalState } from 'orpheus-bind';
 
 export interface UserGlobalState {
   user: {
@@ -40,8 +40,7 @@ const initialState: UserGlobalState = {
   user: null,
 };
 
-export const useUserGlobalState =
-  createGlobalState<UserGlobalState>(initialState);
+export const useUserGlobalState = createGlobalState<UserGlobalState>(initialState);
 ```
 
 #### 2. Use the custom global state hook in your components
@@ -51,14 +50,14 @@ Utilize your custom global state hook in any component:
 ```tsx
 // src/SomeComponent.tsx
 
-import React from "react";
-import { useUserGlobalState } from "./userGlobalState";
+import React from 'react';
+import { useUserGlobalState } from './userGlobalState';
 
 const SomeComponent: React.FC = () => {
   const [state, updateState] = useUserGlobalState();
 
   const handleLogin = () => {
-    updateState({ user: { id: 1, name: "John Doe" } });
+    updateState({ user: { id: 1, name: 'John Doe' } });
   };
 
   const handleLogout = () => {

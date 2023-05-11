@@ -1,5 +1,5 @@
-import { act, renderHook } from "@testing-library/react";
-import { createGlobalState } from "./OrpheusBind";
+import { act, renderHook } from '@testing-library/react';
+import { createGlobalState } from './OrpheusBind';
 
 interface TestGlobalState {
   count: number;
@@ -11,14 +11,14 @@ const initialState: TestGlobalState = {
 
 const useTestGlobalState = createGlobalState<TestGlobalState>(initialState);
 
-describe("OrpheusBind", () => {
-  it("should return the initial state", () => {
+describe('OrpheusBind', () => {
+  it('should return the initial state', () => {
     const { result } = renderHook(() => useTestGlobalState());
     const [state] = result.current;
     expect(state).toEqual(initialState);
   });
 
-  it("should update the state with a new value", () => {
+  it('should update the state with a new value', () => {
     const { result } = renderHook(() => useTestGlobalState());
     const [_, setState] = result.current;
 
@@ -31,7 +31,7 @@ describe("OrpheusBind", () => {
     expect(state).toEqual(nextValue);
   });
 
-  it("should update the state with an updater function", () => {
+  it('should update the state with an updater function', () => {
     const { result } = renderHook(() => useTestGlobalState());
     const [_, setState] = result.current;
 
