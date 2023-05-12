@@ -1,19 +1,29 @@
 {
   "name": "orpheus-bind",
-  "version": "0.0.4",
+  "version": "0.0.9",
   "author": "JoaoPauloCMarra <joaopaulocmarra@gmail.com> (http://webnexus.com.br/)",
   "license": "MIT",
-  "main": "./dist/orpheus-bind.es.js",
-  "module": "./dist/orpheus-bind.umd.js",
   "private": false,
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/orpheus-bind.js",
+  "module": "./dist/orpheus-bind.umd.cjs",
+  "exports": {
+    ".": {
+      "import": "./dist/orpheus-bind.js",
+      "require": "./dist/orpheus-bind.umd.cjs"
+    }
+  },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && tsc --emitDeclarationOnly",
     "lint": "tsc --noEmit && eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "jest --maxWorkers=50%",
     "test:watch": "jest --watchAll --maxWorkers=25%",
-    "format": "echo 'Formatting code:\n' && prettier --config ./.prettierrc.js --write . && echo ' '",
+    "format": "echo 'Formatting code:\n' && prettier --config ./.prettierrc --write . && echo ' '",
     "ci": "npm-run-all format lint test build",
     "prepublishOnly": "npm run ci",
     "prepare": "husky install"
