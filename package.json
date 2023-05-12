@@ -1,6 +1,6 @@
 {
   "name": "orpheus-bind",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "author": "JoaoPauloCMarra <joaopaulocmarra@gmail.com> (http://webnexus.com.br/)",
   "license": "MIT",
   "private": false,
@@ -18,7 +18,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build && tsc --emitDeclarationOnly",
+    "build": "vite build",
     "lint": "tsc --noEmit && eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "jest --maxWorkers=50%",
@@ -26,6 +26,7 @@
     "format": "echo 'Formatting code:\n' && prettier --config ./.prettierrc --write . && echo ' '",
     "ci": "npm-run-all format lint test build",
     "prepublishOnly": "npm run ci",
+    "postpublish": "git push",
     "prepare": "husky install"
   },
   "devDependencies": {
