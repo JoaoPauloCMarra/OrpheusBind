@@ -8,11 +8,18 @@ OrpheusBind is a simple, lightweight, and type-safe global state management libr
 - Type-safe with TypeScript support
 - Based on React hooks and RxJS
 - No need to install RxJS separately
+- Middleware support for intercepting and modifying actions or updates
 - Lightweight and easy to integrate
 
 ## 📦 Installation
 
 Add OrpheusBind to your project with the following command:
+
+```bash
+npm install orpheus-bind
+```
+
+or
 
 ```bash
 yarn add orpheus-bind
@@ -27,7 +34,7 @@ Create a file to define your custom global state hook, including the state inter
 ```tsx
 // src/userGlobalState.ts
 
-import { createGlobalState } from 'orpheus-bind';
+import { createGlobalState, Middleware } from 'orpheus-bind';
 
 export interface UserGlobalState {
   user: {
@@ -40,7 +47,13 @@ const initialState: UserGlobalState = {
   user: null,
 };
 
-export const useUserGlobalState = createGlobalState<UserGlobalState>(initialState);
+// Optional middleware for logging state updates
+const loggingMiddleware: Middleware<UserGlobalState> = (currentState, newStateOrUpdater) => {
+  console.log('Updating state:', currentState, newStateOrUpdater);
+  return newStateOrUpdater;
+};
+
+export const useUserGlobalState = createGlobalState<UserGlobalState>(initialState, loggingMiddleware);
 ```
 
 #### 2. Use the custom global state hook in your components
@@ -81,13 +94,4 @@ const SomeComponent: React.FC = () => {
 export default SomeComponent;
 ```
 
-# 🚀 Future Features
-
-- Middleware support for intercepting and modifying actions or updates
-- DevTools integration for easy debugging and monitoring of state changes
-- Code splitting and lazy loading support
-- Efficient updates and memoization to minimize unnecessary renders
-- Scoped state management for better application structure
-- Easier integration with other popular libraries
-- Better error handling and recovery
-- Comprehensive documentation and examples
+#### also check the [DEMO](src/demo) application to see a simplier implementation example
