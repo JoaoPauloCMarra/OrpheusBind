@@ -1,6 +1,6 @@
 {
   "name": "orpheus-bind",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "author": "JoaoPauloCMarra <joaopaulocmarra@gmail.com> (http://webnexus.com.br/)",
   "license": "MIT",
   "private": false,
@@ -26,7 +26,7 @@
     "format": "echo 'Formatting code:\n' && prettier --config ./.prettierrc --write . && echo ' '",
     "ci": "npm-run-all format lint test build",
     "prepublishOnly": "npm run ci",
-    "postpublish": "git push",
+    "postversion": "git push",
     "prepare": "husky install"
   },
   "devDependencies": {
@@ -50,7 +50,7 @@
     "ts-jest": "^29.1.0",
     "typescript": "^5.0.4",
     "vite": "^4.3.5",
-    "vite-plugin-dts": "^2.3.0",
+    "vite-plugin-static-copy": "^0.15.0",
     "vite-tsconfig-paths": "^4.2.0"
   },
   "dependencies": {
