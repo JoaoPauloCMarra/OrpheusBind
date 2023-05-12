@@ -1,6 +1,6 @@
 {
   "name": "orpheus-bind",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "JoaoPauloCMarra <joaopaulocmarra@gmail.com> (http://webnexus.com.br/)",
   "license": "MIT",
   "main": "./dist/orpheus-bind.es.js",
