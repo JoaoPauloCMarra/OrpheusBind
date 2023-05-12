@@ -1,0 +1,7 @@
+.Counter--count {
+  display: inline-block;
+  font-weight: bolder;
+  font-size: 1.2rem;
+  min-width: 2rem;
+  text-align: center;
+}

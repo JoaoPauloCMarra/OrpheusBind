@@ -8,8 +8,11 @@ OrpheusBind is a simple, lightweight, and type-safe global state management libr
 - Type-safe with TypeScript support
 - Based on React hooks and RxJS
 - No need to install RxJS separately
-- Middleware support for intercepting and modifying actions or updates
 - Lightweight and easy to integrate
+- Code splitting and lazy loading support
+- Middleware support for intercepting and modifying actions or updates
+- State reset functionality to revert back to the initial state
+- Efficient updates and memoization to minimize unnecessary renders
 
 ## 📦 Installation
 
@@ -75,6 +78,50 @@ const SomeComponent: React.FC = () => {
 
   const handleLogout = () => {
     updateState({ user: null });
+  };
+
+  return (
+    <div>
+      {state.user ? (
+        <>
+          <div>Welcome, {state.user.name}!</div>
+          <button onClick={handleLogout}>Logout</button>
+        </>
+      ) : (
+        <button onClick={handleLogin}>Login</button>
+      )}
+    </div>
+  );
+};
+
+export default SomeComponent;
+```
+
+### Resetting the Global State
+
+OrpheusBind provides a convenient `resetState` method that allows you to reset the global state back to its initial value. This is useful when you want to clear the current state and start from scratch.
+
+#### Usage:
+
+##### 1. Create a custom global state hook
+
+Create a file to define your custom global state hook, including the state interface and initial state:
+
+```tsx
+// src/SomeComponent.tsx
+
+import React from 'react';
+import { useUserGlobalState } from './userGlobalState';
+
+const SomeComponent: React.FC = () => {
+  const [state, updateState, resetState] = useUserGlobalState();
+
+  const handleLogin = () => {
+    updateState({ user: { id: 1, name: 'John Doe' } });
+  };
+
+  const handleLogout = () => {
+    resetState();
   };
 
   return (

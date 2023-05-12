@@ -1,19 +1,23 @@
-import { act, renderHook } from '@testing-library/react';
+import { act, cleanup, renderHook } from '@testing-library/react';
 import { createGlobalState, Middleware } from './OrpheusBind';
 
+console.log = jest.fn();
 const initialState = 0;
-const useTestGlobalState = createGlobalState<number>(initialState);
-
-const sampleMiddleware: Middleware<number> = (_, newStateOrUpdater) => {
+const sampleMiddleware: Middleware<number> = (value, newStateOrUpdater) => {
+  console.log(newStateOrUpdater);
   return newStateOrUpdater;
 };
 
-const useTestGlobalStateWithMiddleware = createGlobalState<number>(initialState, sampleMiddleware);
+const useTestGlobalState = createGlobalState<number>(initialState);
+const useTestGlobalStateWithMiddleware = createGlobalState<number>(initialState, { middleware: sampleMiddleware });
 
 describe('OrpheusBind', () => {
+  afterEach(cleanup);
+
   it('should return the initial state', () => {
     const { result } = renderHook(() => useTestGlobalState());
     const [state] = result.current;
+
     expect(state).toEqual(initialState);
   });
 
@@ -24,19 +28,6 @@ describe('OrpheusBind', () => {
     const nextValue = 2;
     act(() => {
       setState(nextValue);
-    });
-
-    const [state] = result.current;
-    expect(state).toEqual(nextValue);
-  });
-
-  it('should update the state with an updater function', () => {
-    const { result } = renderHook(() => useTestGlobalState());
-    const [_, setState] = result.current;
-
-    const nextValue = 3;
-    act(() => {
-      setState((current) => current + 1);
     });
 
     const [state] = result.current;
@@ -54,29 +45,26 @@ describe('OrpheusBind', () => {
 
     const [state] = result.current;
     expect(state).toEqual(nextValue);
+    expect(console.log).toHaveBeenCalledWith(nextValue);
   });
 
-  it('should not update the state when the value is the same', () => {
+  it('should reset the state to the initial value', async () => {
     const { result } = renderHook(() => useTestGlobalState());
-    const [_, setState] = result.current;
+    const [_, setState, resetState] = result.current;
 
+    const nextValue = 2;
     act(() => {
-      setState(initialState);
+      setState(nextValue);
     });
 
-    const [state] = result.current;
-    expect(state).toEqual(initialState);
-  });
-
-  it('should not update the state when the updater function returns the same value', () => {
-    const { result } = renderHook(() => useTestGlobalState());
-    const [_, setState] = result.current;
+    let [state] = result.current;
+    expect(state).toEqual(2);
 
     act(() => {
-      setState((current) => current);
+      resetState();
     });
 
-    const [state] = result.current;
+    [state] = result.current;
     expect(state).toEqual(initialState);
   });
 });

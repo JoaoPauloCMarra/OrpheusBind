@@ -1,0 +1,27 @@
+.Pokemon {
+  margin-top: 2rem;
+}
+
+.Pokemon--info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Pokemon--photo {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  height: 48px;
+  width: 48px;
+}
+.Pokemon--photo img {
+  display: inline-block;
+}
+.Pokemon--name {
+  font-size: 2rem;
+  font-weight: bolder;
+}
