@@ -1,7 +1,7 @@
 import { createUseGlobalState } from '../';
 import { loggingMiddleware } from './loggingMiddleware';
 
-export type PokemonState = {
+type PokemonState = {
   name?: string;
   url?: string;
   error?: string;
