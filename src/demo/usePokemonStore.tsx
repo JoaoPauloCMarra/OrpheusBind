@@ -1,4 +1,4 @@
-import { createGlobalState } from '../OrpheusBind';
+import { createUseGlobalState } from '../';
 import { loggingMiddleware } from './loggingMiddleware';
 
 export type PokemonState = {
@@ -10,6 +10,6 @@ export type PokemonState = {
 
 export const initialState = { loading: true };
 
-const usePokemonStore = createGlobalState<PokemonState>(initialState, { middleware: loggingMiddleware });
+const usePokemonStore = createUseGlobalState<PokemonState>({ initialState, middleware: loggingMiddleware });
 
 export default usePokemonStore;

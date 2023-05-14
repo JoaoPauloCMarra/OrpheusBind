@@ -1,5 +1,6 @@
 import { act, cleanup, renderHook } from '@testing-library/react';
-import { createGlobalState } from './OrpheusBind';
+import { createUseGlobalState } from './';
+import type { Middleware } from './';
 
 console.log = jest.fn();
 const initialState = 0;
@@ -8,8 +9,8 @@ const sampleMiddleware: Middleware<number> = (_, newStateOrUpdater) => {
   return newStateOrUpdater;
 };
 
-const useTestGlobalState = createGlobalState<number>(initialState);
-const useTestGlobalStateWithMiddleware = createGlobalState<number>(initialState, { middleware: sampleMiddleware });
+const useTestGlobalState = createUseGlobalState<number>({ initialState });
+const useTestGlobalStateWithMiddleware = createUseGlobalState<number>({ initialState, middleware: sampleMiddleware });
 
 describe('OrpheusBind', () => {
   afterEach(cleanup);
