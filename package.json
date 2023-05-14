@@ -11,6 +11,7 @@
   ],
   "main": "./dist/orpheus-bind.js",
   "module": "./dist/orpheus-bind.umd.cjs",
+  "types": "./dist/OrpheusBind.d.ts",
   "exports": {
     ".": {
       "import": "./dist/orpheus-bind.js",
@@ -51,6 +52,7 @@
     "ts-jest": "^29.1.0",
     "typescript": "^5.0.4",
     "vite": "^4.3.5",
+    "vite-plugin-dts": "^2.3.0",
     "vite-tsconfig-paths": "^4.2.0"
   },
   "dependencies": {

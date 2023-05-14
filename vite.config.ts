@@ -1,11 +1,11 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
+import dts from 'vite-plugin-dts';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import reactRefresh from '@vitejs/plugin-react-refresh';
-import dts from 'vite-plugin-dts';
 
 export default defineConfig({
-  plugins: [tsconfigPaths(), reactRefresh(), dts()],
+  plugins: [dts(), tsconfigPaths(), reactRefresh()],
   server: {
     port: 3000,
   },
@@ -13,10 +13,10 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/OrpheusBind.tsx'),
       name: 'OrpheusBind',
-      fileName: (format) => `orpheus-bind.${format}.js`,
+      fileName: 'orpheus-bind',
     },
     rollupOptions: {
-      external: (id) => /^react/.test(id),
+      external: ['react', 'react-dom', 'rxjs'],
       output: {
         globals: {
           react: 'React',

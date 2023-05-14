@@ -1,9 +1,9 @@
 import { act, cleanup, renderHook } from '@testing-library/react';
-import { createGlobalState, Middleware } from './OrpheusBind';
+import { createGlobalState } from './OrpheusBind';
 
 console.log = jest.fn();
 const initialState = 0;
-const sampleMiddleware: Middleware<number> = (value, newStateOrUpdater) => {
+const sampleMiddleware: Middleware<number> = (_, newStateOrUpdater) => {
   console.log(newStateOrUpdater);
   return newStateOrUpdater;
 };

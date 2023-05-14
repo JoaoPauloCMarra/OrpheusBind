@@ -2,14 +2,6 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { BehaviorSubject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 
-export type StateUpdater<T> = T | ((prevState: T) => T);
-
-export type Middleware<T> = (currentState: T, stateUpdater: StateUpdater<T>) => StateUpdater<T>;
-
-interface Options<T> {
-  middleware?: Middleware<T>;
-}
-
 /**
  * Factory function to create global state hooks
  * @param initialState - The initial state of the global state
