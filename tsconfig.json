@@ -14,6 +14,6 @@
     "forceConsistentCasingInFileNames": true,
     "declaration": true
   },
-  "include": ["./index.d.ts", "./src/*.ts", "./src/*.tsx"],
-  "exclude": ["dist", "node_modules"]
+  "include": ["./src/*.ts", "./src/*.tsx"],
+  "exclude": [".husky", "dist", "node_modules"]
 }
