@@ -11,7 +11,7 @@
   ],
   "main": "./dist/orpheus-bind.js",
   "module": "./dist/orpheus-bind.umd.cjs",
-  "types": "./dist/OrpheusBind.d.ts",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/orpheus-bind.js",
