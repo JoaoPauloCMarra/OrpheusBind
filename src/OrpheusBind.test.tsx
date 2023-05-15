@@ -22,6 +22,18 @@ describe('OrpheusBind', () => {
     expect(state).toEqual(initialState);
   });
 
+  it('should not change the state when reset action is dispatched but the state is already at its initial value', () => {
+    const { result } = renderHook(() => useTestGlobalState());
+    const [_, __, resetState] = result.current;
+
+    act(() => {
+      resetState();
+    });
+
+    const [state] = result.current;
+    expect(state).toEqual(initialState);
+  });
+
   it('should update the state with a new value', () => {
     const { result } = renderHook(() => useTestGlobalState());
     const [_, setState] = result.current;
