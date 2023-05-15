@@ -3,14 +3,26 @@ import { createUseGlobalState } from './';
 import type { Middleware } from './';
 
 console.log = jest.fn();
+const onError = jest.fn();
+const errorMsg = 'Sample error from middleware';
 const initialState = 0;
+
 const sampleMiddleware: Middleware<number> = (_, newStateOrUpdater) => {
   console.log(newStateOrUpdater);
   return newStateOrUpdater;
 };
 
+const errorMiddleware: Middleware<number> = () => {
+  throw new Error(errorMsg);
+};
+
 const useTestGlobalState = createUseGlobalState<number>({ initialState });
 const useTestGlobalStateWithMiddleware = createUseGlobalState<number>({ initialState, middleware: sampleMiddleware });
+const useTestGlobalStateWithMiddlewareAndErrorHandling = createUseGlobalState<number>({
+  initialState,
+  middleware: errorMiddleware,
+  onError,
+});
 
 describe('OrpheusBind', () => {
   afterEach(cleanup);
@@ -78,6 +90,30 @@ describe('OrpheusBind', () => {
     });
 
     [state] = result.current;
+    expect(state).toEqual(initialState);
+  });
+
+  it('should call onError when an error occurs', () => {
+    const { result } = renderHook(() => useTestGlobalStateWithMiddlewareAndErrorHandling());
+    const [_, setState] = result.current;
+
+    act(() => {
+      setState(5);
+    });
+
+    expect(onError).toBeCalledTimes(1);
+    expect(onError).toHaveBeenCalledWith(new Error(errorMsg));
+  });
+
+  it('should not crash the component when an error occurs', () => {
+    const { result } = renderHook(() => useTestGlobalStateWithMiddlewareAndErrorHandling());
+    const [_, setState] = result.current;
+
+    act(() => {
+      setState(5);
+    });
+
+    const [state] = result.current;
     expect(state).toEqual(initialState);
   });
 });

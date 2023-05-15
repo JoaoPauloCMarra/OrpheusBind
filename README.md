@@ -13,6 +13,7 @@ OrpheusBind is a simple, lightweight, and type-safe global state management libr
 - Middleware support, providing a powerful way to intercept and modify actions or updates before they reach the state.
 - State reset functionality, allowing you to easily revert back to the initial state.
 - Efficient updates and memoization to minimize unnecessary renders, helping to keep your application performant.
+- Error Handling: Built-in support for error handling.
 
 ## 📦 Installation
 
