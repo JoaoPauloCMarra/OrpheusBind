@@ -34,8 +34,10 @@ const Pokemon: FC = () => {
   }, [setState]);
 
   useEffect(() => {
-    onOpenPokeball();
-  }, [onOpenPokeball]);
+    if (!state?.name) {
+      onOpenPokeball();
+    }
+  }, [onOpenPokeball, state?.name]);
 
   return (
     <div className="Pokemon">
