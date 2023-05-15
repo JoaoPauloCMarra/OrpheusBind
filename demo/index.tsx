@@ -5,8 +5,7 @@ import './Global.css';
 
 const container = document.getElementById('root');
 if (container) {
-  const root = createRoot(container);
-  root.render(
+  createRoot(container).render(
     <StrictMode>
       <App />
     </StrictMode>,

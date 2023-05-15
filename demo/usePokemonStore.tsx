@@ -1,4 +1,4 @@
-import { Middleware, createUseGlobalState } from '../';
+import { Middleware, createUseGlobalState } from '../src';
 
 type PokemonState = {
   name?: string;

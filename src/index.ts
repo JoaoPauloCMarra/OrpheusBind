@@ -1,4 +1,4 @@
 export { createStore } from './Core';
-export { createUseGlobalState } from './Hook';
+export { createUseGlobalState } from './ReactHookFactory';
 
 export type { Middleware, StateUpdater, GlobalStoreOptions } from './Core';

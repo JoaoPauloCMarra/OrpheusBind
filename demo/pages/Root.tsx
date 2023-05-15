@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import { createStore } from '../../Core';
+import { createStore } from '../../src/Core';
 
 const vanillaStore = createStore({ initialState: 'vanilla' });
 
