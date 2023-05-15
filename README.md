@@ -4,15 +4,15 @@ OrpheusBind is a simple, lightweight, and type-safe global state management libr
 
 ## 🌟 Features
 
-- Simple and intuitive API
-- Type-safe with TypeScript support
-- Based on React hooks and RxJS
-- No need to install RxJS separately
-- Lightweight and easy to integrate
-- Code splitting and lazy loading support
-- Middleware support for intercepting and modifying actions or updates
-- State reset functionality to revert back to the initial state
-- Efficient updates and memoization to minimize unnecessary renders
+- Simple and intuitive API, which makes it easy to get started.
+- Strongly typed, with full TypeScript support for safer coding and tooling support.
+- Based on React hooks and RxJS, integrating the power of reactive programming with modern React.
+- No need to install RxJS separately, it's included in the package.
+- Lightweight and modular, easy to integrate into existing projects without bloating your bundle.
+- Supports code splitting and lazy loading out of the box, which can significantly improve initial load times.
+- Middleware support, providing a powerful way to intercept and modify actions or updates before they reach the state.
+- State reset functionality, allowing you to easily revert back to the initial state.
+- Efficient updates and memoization to minimize unnecessary renders, helping to keep your application performant.
 
 ## 📦 Installation
 
@@ -51,12 +51,12 @@ const initialState: UserGlobalState = {
 };
 
 // Optional middleware for logging state updates
-const loggingMiddleware: Middleware<UserGlobalState> = (currentState, newStateOrUpdater) => {
-  console.log('Updating state:', currentState, newStateOrUpdater);
-  return newStateOrUpdater;
+const middleware: Middleware<UserGlobalState> = (currentState, newState) => {
+  console.log('Updating state:', currentState, newState);
+  return newState;
 };
 
-export const useUserGlobalState = createGlobalState<UserGlobalState>(initialState, loggingMiddleware);
+export const useUserGlobalState = createGlobalState<UserGlobalState>({ initialState, middleware });
 ```
 
 #### 2. Use the custom global state hook in your components
