@@ -2,34 +2,27 @@ import React, { FC } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
+import Root from './pages/Root';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    Component: Home,
-  },
-  {
-    path: '/about',
-    Component: About,
+    element: <Root />,
+    children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
+      {
+        path: '/about',
+        element: <About />,
+      },
+    ],
   },
 ]);
 
 const App: FC = () => {
-  return (
-    <main>
-      <nav>
-        <ul>
-          <li>
-            <a href="/">Home</a>
-          </li>
-          <li>
-            <a href="/about">About</a>
-          </li>
-        </ul>
-      </nav>
-      <RouterProvider router={router} />
-    </main>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;

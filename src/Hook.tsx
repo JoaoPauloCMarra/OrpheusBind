@@ -1,27 +1,27 @@
-import { useState, useEffect, useCallback } from 'react';
-import { createGlobalState, StateUpdater, GlobalStateOptions } from './Core';
+import { useState, useEffect, useMemo, useCallback } from 'react';
+import { createStore, GlobalStoreOptions, StateUpdater } from './Core';
 
-export function createUseGlobalState<T>(
-  options: GlobalStateOptions<T>,
-): () => [T, (stateUpdater: StateUpdater<T>) => void, () => void] {
-  const globalState = createGlobalState(options);
+export function createUseGlobalState<T>(options: GlobalStoreOptions<T>) {
+  const globalStore = createStore(options);
 
   return function useGlobalState(): [T, (stateUpdater: StateUpdater<T>) => void, () => void] {
-    const [state, setState] = useState(globalState.getState());
+    const [state, setState] = useState(globalStore.getState());
 
     useEffect(() => {
-      const subscription = globalState.subscribe(setState);
+      const subscription = globalStore.subscribe(setState);
       return () => subscription.unsubscribe();
     }, []);
 
-    const setGlobalState = useCallback((stateUpdater: StateUpdater<T>) => {
-      globalState.setState(stateUpdater);
+    const memoizedState = useMemo(() => state, [state]);
+
+    const memoizedSetState = useCallback((stateUpdater: StateUpdater<T>) => {
+      globalStore.setState(stateUpdater);
     }, []);
 
-    const resetGlobalState = useCallback(() => {
-      globalState.resetState();
+    const memoizedResetState = useCallback(() => {
+      globalStore.resetState();
     }, []);
 
-    return [state, setGlobalState, resetGlobalState];
+    return [memoizedState, memoizedSetState, memoizedResetState];
   };
 }

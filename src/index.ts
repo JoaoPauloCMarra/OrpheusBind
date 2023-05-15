@@ -1,4 +1,4 @@
-export { createGlobalState } from './Core';
+export { createStore } from './Core';
 export { createUseGlobalState } from './Hook';
 
-export type { GlobalStateOptions, Middleware, StateUpdater } from './Core';
+export type { Middleware, StateUpdater, GlobalStoreOptions } from './Core';

@@ -5,7 +5,7 @@ const About: FC = () => {
   const [state, _, resetState] = useCounterStore();
 
   return (
-    <div className='AboutPage Page'>
+    <div className="AboutPage Page">
       <h1>About</h1>
       <div className="CounterReset">
         <p>current counter value: {state}</p>

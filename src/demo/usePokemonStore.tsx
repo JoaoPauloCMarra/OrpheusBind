@@ -1,5 +1,4 @@
-import { createUseGlobalState } from '../';
-import { loggingMiddleware } from './loggingMiddleware';
+import { Middleware, createUseGlobalState } from '../';
 
 type PokemonState = {
   name?: string;
@@ -8,8 +7,13 @@ type PokemonState = {
   loading?: boolean;
 };
 
+const middleware: Middleware<PokemonState> = (_, newState) => {
+  console.log('Your new Pokemon:', newState?.name);
+  return newState;
+};
+
 export const initialState = { loading: true };
 
-const usePokemonStore = createUseGlobalState<PokemonState>({ initialState, middleware: loggingMiddleware });
+const usePokemonStore = createUseGlobalState<PokemonState>({ initialState, middleware });
 
 export default usePokemonStore;

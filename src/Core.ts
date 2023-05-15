@@ -1,11 +1,11 @@
 import { BehaviorSubject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 
-export type GlobalStateOptions<T> = { initialState: T; middleware?: Middleware<T> };
 export type StateUpdater<T> = T | ((prevState: T) => T);
-export type Middleware<T> = (currentState: T, stateUpdater: StateUpdater<T>) => StateUpdater<T>;
+export type Middleware<T> = (currentState: T, newState: T) => T;
+export type GlobalStoreOptions<T> = { initialState: T; middleware?: Middleware<T> };
 
-export function createGlobalState<T>({ initialState, middleware }: GlobalStateOptions<T>) {
+export function createStore<T>({ initialState, middleware }: GlobalStoreOptions<T>) {
   const state$ = new BehaviorSubject<T>(initialState);
 
   function getState(): T {
