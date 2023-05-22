@@ -43,7 +43,7 @@ const Pokemon: FC = () => {
     <div className="Pokemon">
       <h4>This is your new pokemon :)</h4>
       <div className="Pokemon--info">
-        {state.loading && <small>opening pokeball...</small>}
+        {!state.loading && <small>opening pokeball...</small>}
         {!state.loading && state.error && <small>{state.error}</small>}
         {!state.loading && state.url && state.name && (
           <>

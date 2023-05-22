@@ -16,9 +16,14 @@ const errorMiddleware: Middleware<number> = () => {
   throw new Error(errorMsg);
 };
 
-const useTestGlobalState = createUseGlobalState<number>({ initialState });
-const useTestGlobalStateWithMiddleware = createUseGlobalState<number>({ initialState, middleware: sampleMiddleware });
+const useTestGlobalState = createUseGlobalState<number>({ prefix: 'demo', initialState });
+const useTestGlobalStateWithMiddleware = createUseGlobalState<number>({
+  prefix: 'demo-mid',
+  initialState,
+  middleware: sampleMiddleware,
+});
 const useTestGlobalStateWithMiddlewareAndErrorHandling = createUseGlobalState<number>({
+  prefix: 'demo-mid-error',
   initialState,
   middleware: errorMiddleware,
   onError,

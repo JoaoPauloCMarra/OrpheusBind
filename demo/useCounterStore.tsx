@@ -11,6 +11,7 @@ const middleware: Middleware<CounterState> = (currentState, newState) => {
 export const initialState = 0;
 
 const useCounterStore = createUseGlobalState<CounterState>({
+  prefix: 'counter',
   initialState,
   middleware,
 });

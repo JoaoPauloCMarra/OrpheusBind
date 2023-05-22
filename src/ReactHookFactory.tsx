@@ -1,10 +1,12 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { createStore, GlobalStoreOptions, StateUpdater } from './Core';
 
-export function createUseGlobalState<T>(options: GlobalStoreOptions<T>) {
+export function createUseGlobalState<T>(
+  options: GlobalStoreOptions<T>,
+): () => [T, (stateUpdater: StateUpdater<T>) => void, () => void] {
   const globalStore = createStore(options);
 
-  return function useGlobalState(): [T, (stateUpdater: StateUpdater<T>) => void, () => void] {
+  return (): [T, (stateUpdater: StateUpdater<T>) => void, () => void] => {
     const [state, setState] = useState(globalStore.getState());
 
     useEffect(() => {

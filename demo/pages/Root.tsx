@@ -2,7 +2,7 @@ import React, { FC, useCallback, useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { createStore } from '../../src/Core';
 
-const vanillaStore = createStore({ initialState: 'vanilla' });
+const vanillaStore = createStore({ prefix: 'vanilla', initialState: 'vanilla' });
 
 const Root: FC = () => {
   const onVanillaStateChange = useCallback(() => {

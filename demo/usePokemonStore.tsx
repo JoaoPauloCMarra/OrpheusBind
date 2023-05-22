@@ -14,6 +14,6 @@ const middleware: Middleware<PokemonState> = (_, newState) => {
 
 export const initialState = { loading: true };
 
-const usePokemonStore = createUseGlobalState<PokemonState>({ initialState, middleware });
+const usePokemonStore = createUseGlobalState<PokemonState>({ prefix: 'pokemon', initialState, middleware });
 
 export default usePokemonStore;

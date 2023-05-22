@@ -1,16 +1,19 @@
 import { BehaviorSubject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { GlobalStoreError, persistState, retrievePersistedState } from './Storage';
 
 export type StateUpdater<T> = T | ((prevState: T) => T);
 export type Middleware<T> = (currentState: T, newState: T) => T;
 export type GlobalStoreOptions<T> = {
   initialState: T;
+  prefix: string;
   middleware?: Middleware<T>;
-  onError?: (err: Error) => void;
+  onError?: (err: GlobalStoreError) => void;
 };
 
-export function createStore<T>({ initialState, middleware, onError }: GlobalStoreOptions<T>) {
-  const state$ = new BehaviorSubject<T>(initialState);
+export function createStore<T>({ initialState, middleware, onError, prefix }: GlobalStoreOptions<T>) {
+  const persistedState = retrievePersistedState(initialState, prefix, onError);
+  const state$ = new BehaviorSubject<T>(persistedState);
 
   function getState(): T {
     return state$.getValue();
@@ -20,11 +23,7 @@ export function createStore<T>({ initialState, middleware, onError }: GlobalStor
     return state$.pipe(distinctUntilChanged()).subscribe({
       next: listener,
       error: (err) => {
-        if (onError) {
-          onError(err);
-          return;
-        }
-        console.error('An error occurred:', err);
+        onError?.(new GlobalStoreError(err.message));
       },
     });
   }
@@ -35,13 +34,14 @@ export function createStore<T>({ initialState, middleware, onError }: GlobalStor
       const newState =
         typeof stateUpdater === 'function' ? (stateUpdater as (prevState: T) => T)(currentState) : stateUpdater;
       const processedState = middleware ? middleware(currentState, newState) : newState;
+
+      persistState(processedState, prefix, onError);
+
       state$.next(processedState as T);
     } catch (err) {
-      if (onError) {
-        onError(err as Error);
-        return;
+      if (err instanceof Error) {
+        onError?.(new GlobalStoreError(err.message));
       }
-      console.error('An error occurred while setting the state:', err);
     }
   }
 
